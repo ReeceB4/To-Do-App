@@ -1,10 +1,10 @@
 <?php
 
+function db_connection()
+{
 //include creds
 require_once 'base.php';
 
-function db_connection()
-{
 //establish connection
 $db_server = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
