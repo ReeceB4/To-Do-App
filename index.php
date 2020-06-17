@@ -24,7 +24,7 @@ require_once 'inc/add.php';
 
 <div class="container-fluid">
        
-<!-- Start instructions section->
+<!-- Start instructions section-->
 <button data-toggle="collapse" data-target="#infoToggle" type="button" class="btn btn-info"><span class="glyphicon glyphicon-info-sign"></span></button><h1>Online Todo List</h1>      
     <div class="collapse" id="infoToggle">
       With this simple list making app you can,
@@ -45,42 +45,39 @@ require_once 'inc/add.php';
 <!--The main list section start-->    
 <div class="panel panel-default">    
 <div class="panel-body">  
-<ul>
+ <ul>
 
 <?php
 //create resource ordered such that new items are added to top of list
+$todo_res = mysqli_query($db_server, "SELECT * FROM list_items ORDER BY ListItemID DESC");
 
-$id = $_SESSION["id"];    
-var_dump($id);
-$todo_res = $db_server->query("SELECT * FROM list_items where userID = $id ORDER BY ListItemID DESC");
-
-//check success of building resource
-if(!$todo_res)die("Database access failed :" . $db_server->error());
+//check sucess of building resource
+if(!$todo_res)die("Database access failed :" . mysqli_error());
 
 //temp int incrementor 
 $tempNum=0;
 //check if resource is not empty
-if ($todo_res->num_rows > 0) {
+if (mysqli_num_rows($todo_res) > 0) {
     // output data of each row
-    while($row = $todo_res->fetch_assoc()) {
+    while($row = mysqli_fetch_assoc($todo_res)) {
 	//Render to DOM        
 	echo "<li>" . $row["ListText"]. "</li>";
 	$ListIDCount = $row["ListItemID"];
-    //create sequence of list items from 0 to infinity    
 	$sql_listID = "UPDATE list_items SET ListID='$tempNum'
 	       	       WHERE ListItemID='$ListIDCount' ";
 	//Execute query and validate - Ensure ListID is sequential
-	if ($db_server->query($sql_listID)) {
+	if (mysqli_query($db_server, $sql_listID)) {
     		//echo "New record created successfully";
 		$tempNum++;
 		unset($sql_listID);
 	} else {
-    		echo "Error: " . $sql_listID . "<br>" . $db_server->error;
-	}//end if-while-if-else	
-    }//end if-while
+    		echo "Error: " . $sql_listID . "<br>" . mysqli_error($db_server);
+	}	
+
+    }
 } else {
     echo "0 results";
-}//end if-else
+}
 
 ?>
 
@@ -88,10 +85,12 @@ if ($todo_res->num_rows > 0) {
 </div><!--close panel-body-->    
 </div><!--close panel panel-default-->
     
-<!--submit button functionallity caught by add.php see index top-->   
-<form class="form-inline" role="form" action="index.php" method="post">      
+ <!--submit button functionallity caught by add.php see index top-->   
+ <form class="form-inline" role="form" action="index.php" method="post">
+      
     <input type="text" class="form-control" name="add" id="addID">
-    <button type="submit" class="btn btn-default">Add</button>
+  
+  <button type="submit" class="btn btn-default">Add</button>
 </form>    
 <!--The main list section end-->
     
@@ -103,7 +102,7 @@ if ($todo_res->num_rows > 0) {
     cleanUp();
 </script>
 
-<?php $db_server->close(); ?>      
+<?php mysqli_close($db_server); ?>  
 </body>    
     
 </html>

@@ -1,14 +1,14 @@
 <?php
 
 //include creds
-require_once 'base.php' ;
+require_once 'base.php';
 
 //establish connection
-$mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$db_server = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);
 
-//is connection succesful
-if ($mysqli->connect_error) {
-    die("Connection failed: " .$mysqli->connect_error);
+//is connection sucessful
+if (mysqli_connect_errno($db_server)) {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
 ?>
