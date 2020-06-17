@@ -6,6 +6,7 @@ require_once 'inc/connect.php';
 //The Add List Item functionallity
 require_once 'inc/add.php'; 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +22,16 @@ require_once 'inc/add.php';
   </head>
   
 <body>
-
+<!--<div class="page-header">
+        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+    </div>
+    <?php 
+    echo $_SESSION["id"];
+    ?>-->
+    <p>
+        <a href="reset.php" class="btn btn-warning">Reset Your Password</a>
+        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
+    </p>
 <div class="container-fluid">
        
 <!-- Start instructions section-->
@@ -48,6 +58,8 @@ require_once 'inc/add.php';
  <ul>
 
 <?php
+//get the DB stuff
+$db_server = db_connection();
 //create resource ordered such that new items are added to top of list
 $todo_res = mysqli_query($db_server, "SELECT * FROM list_items ORDER BY ListItemID DESC");
 
