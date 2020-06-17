@@ -3,12 +3,16 @@
 //include creds
 require_once 'base.php';
 
+function db_connection()
+{
 //establish connection
-$db_server = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);
+$db_server = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 //is connection sucessful
-if (mysqli_connect_errno($db_server)) {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+if ($db_server->connect_error) {
+    die("Connection failed: " .$db_server->connect_error);
+}   
+return $db_server;
 }
 
 ?>

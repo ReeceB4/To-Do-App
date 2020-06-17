@@ -1,5 +1,9 @@
 <?php
-  
+
+db_connection();
+$db_server = db_connection();
+
+
 function sanitizeString($var)
 {
 	$var = strip_tags($var);
