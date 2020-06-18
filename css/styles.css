@@ -1,3 +1,33 @@
+li{
+    padding: 0.5%;
+    list-style: none;
+}
+
+h1{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.5em;
+    color: #666666;
+}
+
+.glyphicon-info-sign{
+    font-size: 2em;
+}
+
 ul p{
     display: inline;
+}
+
+#add{
+    width: 83%;	
+}
+
+form button{
+    float: right;
+    width: 15%;
+}
+
+form input{
+    float: left;
+    
 }
