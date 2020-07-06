@@ -2,7 +2,7 @@
 session_start();
 require_once 'connect.php';
 $checkNumA = $_POST['val'];
-
+$db_server = db_connection();
 $id = $_SESSION["id"];
 $result = $db_server->query("SELECT ListItemDone FROM list_items
                             WHERE ListID='$checkNumA' AND userID = '$id' ");

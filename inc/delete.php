@@ -1,5 +1,6 @@
 <?php
 require_once 'connect.php';
+$db_server = db_connection();
 $checkNumA = $_POST['val'];
 
 $sql = "DELETE FROM list_items WHERE ListId='$checkNumA' ";

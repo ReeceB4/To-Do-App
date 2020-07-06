@@ -2,6 +2,7 @@
 session_start();
 
 require_once 'connect.php';
+$db_server = db_connection();
 $id = $_SESSION["id"];
 
 $result = $db_server->query("SELECT * FROM list_items where userID = '$id' ORDER BY ListItemID DESC");

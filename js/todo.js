@@ -56,6 +56,3 @@ function cleanUp() {
        $.post('inc/delete.php', 'val=' + checkNum);
     });
     
-    
-    
-    
