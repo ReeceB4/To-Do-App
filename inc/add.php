@@ -8,7 +8,7 @@ if (isset($_POST['add']))
     $db_server = db_connection();
     //atempt to remove html injection and other hacking attempts
     $listTextClean = sanitizeString($db_server, $_POST['add']);
-    
+    $sessionID = $_SESSION["id"];
     //query to Add new entry into table
     $sql = "INSERT INTO list_items (ListText, userID)
     VALUES ('$listTextClean','$sessionID' )";
@@ -33,3 +33,4 @@ function sanitizeString($db_server, $var)
 	$db_server->real_escape_string($var);
 	return($var);
 }
+?>

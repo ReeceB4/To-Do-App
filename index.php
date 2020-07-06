@@ -1,42 +1,50 @@
 <?php 
 
-//session_start(); //starts in add.php
+/*
+**
+The MIT License (MIT)
+Copyright (c) 2016 Lyndon Daniels
+
+Software: A simple todo list making web app
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+**
+*/
+
 //Login Data
 require_once 'inc/connect.php';
 //The Add List Item functionallity
 require_once 'inc/add.php'; 
-
-
+$db_server = db_connection();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">  
+    <link rel="stylesheet" href="css/todo.css">  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  </head>
-  
-<body>
-<!--<div class="page-header">
-        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    </div>
-    <?php 
-    echo $_SESSION["id"];
-    ?>-->
-    <p>
-        <a href="reset.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-    </p>
-<div class="container-fluid">
        
+  
+  </head>
+  <body>
+
+<div class="container-fluid">
+    
+   
 <!-- Start instructions section-->
-<button data-toggle="collapse" data-target="#infoToggle" type="button" class="btn btn-info"><span class="glyphicon glyphicon-info-sign"></span></button><h1>Online Todo List</h1>      
+<button data-toggle="collapse" data-target="#infoToggle" type="button" class="btn btn-info"><span class="glyphicon glyphicon-info-sign"></span></button><h1>Online Todo List</h1> 
+    
+    
     <div class="collapse" id="infoToggle">
+  
       With this simple list making app you can,
       <ul>
           <li>
@@ -49,7 +57,9 @@ require_once 'inc/add.php';
           <span class="glyphicon glyphicon-remove"></span> Delete items from the list  
           </li>
       </ul>  
-   </div><!--close collapse-->
+   
+      
+</div><!--close collapse-->
 <!-- End instructions section-->
 
 <!--The main list section start-->    
@@ -58,8 +68,6 @@ require_once 'inc/add.php';
  <ul>
 
 <?php
-//get the DB stuff
-$db_server = db_connection();
 //create resource ordered such that new items are added to top of list
 $todo_res = mysqli_query($db_server, "SELECT * FROM list_items ORDER BY ListItemID DESC");
 
@@ -114,7 +122,8 @@ if (mysqli_num_rows($todo_res) > 0) {
     cleanUp();
 </script>
 
-<?php mysqli_close($db_server); ?>  
+<?php mysqli_close($db_server); ?>      
 </body>    
     
 </html>
+
